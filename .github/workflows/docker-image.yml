@@ -1,3 +1,4 @@
+---
 name: Docker Image Release
 
 on:
@@ -21,17 +22,16 @@ jobs:
         id: get_nomie_version
         run: |
           # Fetch the latest stable release (exclude beta versions)
-          version=$(curl -s -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/open-nomie/nomie6-oss/releases | jq -cMr '([.[]|select(all(.tag_name; contains("beta")|not))])|.[:1]|.[].tag_name')
-          echo "version=${version}" >> $GITHUB_ENV
+          echo "version=$(curl -s -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/open-nomie/nomie6-oss/releases | jq -cMr '([.[]|select(all(.tag_name; contains("beta")|not))])|.[:1]|.[].tag_name')" >> "${GITHUB_OUTPUT}"
 
       - name: Output Versions
         run: |
           # Output the versions for further use
-          echo "Latest Release: ${{ env.version }}"
-
+          echo "Latest Release: ${{ steps.get_nomie_version.outputs.version }}"
+        
     outputs:
       nomie: ${{ steps.get_nomie_version.outputs.version }}
-
+      
   check-image-version:
     needs: get-latest-version
     name: Check if Image Version Exists
@@ -42,19 +42,19 @@ jobs:
         run: |
           if docker pull rogerrum/docker-nomie6-oss:${{ needs.get-latest-version.outputs.nomie }}; then
             echo "Image version already exists. Skipping build."
-            echo "skip_build=true" >> $GITHUB_ENV
+            echo "skip_build=true" >> "${GITHUB_OUTPUT}"
           else
             echo "Image version does not exist. Proceeding with the build."
-            echo "skip_build=false" >> $GITHUB_ENV
+            echo "skip_build=false" >> "${GITHUB_OUTPUT}"
           fi
         continue-on-error: true  # Allow failure as we want to proceed with the build even if the image doesn't exist
 
       - name: Output
         run: |
-          echo "Skip Build: ${{ env.skip_build }}"
+          echo "Skip Build: ${{ steps.check_image.outputs.skip_build }}"
 
     outputs:
-      skip: ${{ env.skip_build }}
+      skip: ${{ steps.check_image.outputs.skip_build }}
 
   build:
     runs-on: ubuntu-latest
