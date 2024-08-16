@@ -1,4 +1,12 @@
 # Docker Nomie6 OSS
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/rogerrum/docker-nomie6-oss)](https://hub.docker.com/r/rogerrum/docker-nomie6-oss/tags)
+[![license](https://img.shields.io/github/license/rogerrum/docker-nomie6-oss)](https://github.com/rogerrum/docker-nomie6-oss/blob/main/LICENSE)
+[![DockerHub pulls](https://img.shields.io/docker/pulls/rogerrum/docker-nomie6-oss.svg)](https://hub.docker.com/r/rogerrum/docker-nomie6-oss/)
+[![DockerHub stars](https://img.shields.io/docker/stars/rogerrum/docker-nomie6-oss.svg)](https://hub.docker.com/r/rogerrum/docker-nomie6-oss/)
+[![GitHub stars](https://img.shields.io/github/stars/rogerrum/docker-nomie6-oss.svg)](https://github.com/rogerrum/docker-nomie6-oss)
+[![Contributors](https://img.shields.io/github/contributors/rogerrum/docker-nomie6-oss.svg)](https://github.com/rogerrum/docker-nomie6-oss/graphs/contributors)
+[![Docker Image CI](https://github.com/rogerrum/docker-nomie6-oss/actions/workflows/docker-image.yml/badge.svg)](https://github.com/rogerrum/docker-nomie6-oss/actions/workflows/docker-image.yml)
+
 
 A Docker container for [Nomie6 OSS](https://github.com/open-nomie/nomie6-oss), an open-source personal data tracking tool.
 
